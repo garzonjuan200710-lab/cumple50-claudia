@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Cuenta regresiva Claudia</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+
+      /* 🔥 clave para que se vea sin cuadro */
+      text-shadow: 2px 2px 10px black;
+    }
+
+    .overlay {
+      /* ❌ sin fondo */
+      background: transparent;
+    }
+
+    /* 🔥 TÍTULO GRANDE */
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 25px;
+      letter-spacing: 3px;
+    }
+
+    /* 🔥 CONTADOR GRANDE */
+    #contador div {
+      font-size: 2.5rem;
+      margin: 12px 0;
+    }
+
+    /* 🎉 Animación del feliz cumpleaños */
+    .feliz {
+      position: absolute;
+      top: 40%;
+      left: -100%;
+      font-size: 3rem;
+      font-weight: bold;
+      color: #ffcc00;
+      animation: mover 6s linear infinite;
+      white-space: nowrap;
+    }
+
+    @keyframes mover {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="overlay">
+  <h1>🎂 ¡FALTAN! 🎂</h1>
+
+  <div id="contador">
+    <div><span id="dias"></span> días</div>
+    <div><span id="horas"></span> horas</div>
+    <div><span id="minutos"></span> minutos</div>
+    <div><span id="segundos"></span> segundos</div>
+  </div>
+   <h1>💛 ¡PARA EL EVENTO FAMILIAR DEL AÑO! 💛</h1>
+</div>
+
+<!-- 🎉 Texto animado -->
+<div id="mensaje" class="feliz" style="display:none;">
+ 📣📣🎉 ¡NO TE LO PIERDAS! 🎉📣📣🎉 ¡FELIZ CINCUENTENARIO YAYA! 🎉📣📣 🎉 ¡NO TE LO PIERDAS! 🎉📣📣 🎉 ¡FELIZ CINCUENTENARIO YAYA! 🎉📣📣 🎉 ¡NO TE LO PIERDAS! 🎉 🎉 ¡FELIZ CINCUENTENARIO YAYA! 🎉📣📣🎉 ¡NO TE LO PIERDAS! 🎉📣📣🎉 ¡FELIZ CINCUENTENARIO YAYA! 🎉📣📣🎉 ¡NO TE LO PIERDAS! 🎉📣📣 
+
+<script>
+  const imagenes = ["claudia1.jpg","claudia2.jpg","claudia3.jpg"];
+  let index = 0;
+
+  function cambiarFondo() {
+  const mensaje = document.getElementById("mensaje");
+
+  if (index < imagenes.length) {
+    const imagen = imagenes[index];
+
+    document.body.style.backgroundImage = `url(${imagen})`;
+
+    // 🔥 AJUSTES PERSONALIZADOS
+    if (imagen === "claudia1.jpg") {
+      document.body.style.backgroundPosition = "center";
+    }
+
+    if (imagen === "claudia2.jpg") {
+      document.body.style.backgroundPosition = "center";
+    }
+
+    if (imagen === "claudia3.jpg") {
+      document.body.style.backgroundPosition = "center"; // 🔥 ESTE ES EL IMPORTANTE
+    }
+
+    mensaje.style.display = "none";
+
+  } else {
+    document.body.style.background = "black";
+    mensaje.style.display = "block";
+  }
+
+  index = (index + 1) % (imagenes.length + 1);
+}
+
+  setInterval(cambiarFondo, 3000);
+  cambiarFondo();
+
+  // ⏱️ contador
+  const fechaObjetivo = new Date("April 25, 2026 20:00:00").getTime();
+
+  function actualizarContador() {
+    const ahora = new Date().getTime();
+    const diferencia = fechaObjetivo - ahora;
+
+    if (diferencia <= 0) {
+      document.getElementById("contador").innerHTML =
+        "🎉 ¡Feliz cumpleaños Claudia! 🎉";
+      return;
+    }
+
+    const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+    const horas = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutos = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+    const segundos = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+    document.getElementById("dias").textContent = dias;
+    document.getElementById("horas").textContent = horas;
+    document.getElementById("minutos").textContent = minutos;
+    document.getElementById("segundos").textContent = segundos;
+  }
+
+  setInterval(actualizarContador, 1000);
+  actualizarContador();
+</script>
+
+</body>
+</html>
